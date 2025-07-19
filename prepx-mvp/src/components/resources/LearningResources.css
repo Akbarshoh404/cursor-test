@@ -1,0 +1,260 @@
+/* Additional Learning Resources Styles */
+.test-strategies {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.strategy-section {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
+}
+
+.strategy-section h3 {
+  color: #2d3748;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 0.5rem;
+}
+
+.strategy-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.strategy-card {
+  background: #f7fafc;
+  border-radius: 8px;
+  padding: 1.5rem;
+  border-left: 4px solid #4c51bf;
+}
+
+.strategy-card h4 {
+  color: #2d3748;
+  margin-bottom: 1rem;
+}
+
+.strategy-card ul {
+  color: #4a5568;
+  padding-left: 1.2rem;
+}
+
+.strategy-card li {
+  margin-bottom: 0.5rem;
+}
+
+.band-strategies {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.band-card {
+  background: #f7fafc;
+  border-radius: 8px;
+  padding: 1.5rem;
+  border-left: 4px solid #38b2ac;
+}
+
+.band-card h4 {
+  color: #2d3748;
+  margin-bottom: 1rem;
+}
+
+.band-card ul {
+  color: #4a5568;
+  padding-left: 1.2rem;
+}
+
+.band-card li {
+  margin-bottom: 0.5rem;
+}
+
+.mental-prep {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.prep-item {
+  background: #f7fafc;
+  border-radius: 8px;
+  padding: 1.5rem;
+  border-left: 4px solid #ed8936;
+}
+
+.prep-item h4 {
+  color: #2d3748;
+  margin-bottom: 1rem;
+}
+
+.prep-item p {
+  color: #4a5568;
+  line-height: 1.6;
+}
+
+.sample-analysis {
+  background: #f7fafc;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-top: 2rem;
+}
+
+.sample-analysis h4 {
+  color: #2d3748;
+  margin-bottom: 1rem;
+}
+
+.analysis-points ul {
+  color: #4a5568;
+  padding-left: 1.2rem;
+}
+
+.analysis-points li {
+  margin-bottom: 0.75rem;
+  line-height: 1.6;
+}
+
+.analysis-points strong {
+  color: #2d3748;
+}
+
+.common-mistakes {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
+}
+
+.mistakes-intro {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.mistakes-intro h3 {
+  color: #2d3748;
+  margin-bottom: 1rem;
+}
+
+.mistakes-intro p {
+  color: #718096;
+}
+
+.mistakes-list {
+  margin-bottom: 3rem;
+}
+
+.mistake-item {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  background: #fed7d7;
+  border-radius: 8px;
+  align-items: flex-start;
+}
+
+.mistake-icon {
+  font-size: 1.2rem;
+  margin-top: 0.1rem;
+}
+
+.detailed-mistakes {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.mistake-category {
+  background: #f7fafc;
+  border-radius: 12px;
+  padding: 2rem;
+  border-left: 4px solid #e53e3e;
+}
+
+.mistake-category h4 {
+  color: #2d3748;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.mistake-examples {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.mistake-example {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  border: 1px solid #e2e8f0;
+}
+
+.mistake-example h5 {
+  color: #2d3748;
+  margin-bottom: 1rem;
+}
+
+.wrong {
+  color: #e53e3e;
+  background: #fed7d7;
+  padding: 0.5rem;
+  border-radius: 4px;
+  margin: 0.5rem 0;
+  display: block;
+}
+
+.correct {
+  color: #38a169;
+  background: #c6f6d5;
+  padding: 0.5rem;
+  border-radius: 4px;
+  margin: 0.5rem 0;
+  display: block;
+}
+
+/* Responsive Design for Learning Resources */
+@media (max-width: 768px) {
+  .strategy-grid,
+  .band-strategies,
+  .mental-prep,
+  .general-tips-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .detailed-mistakes {
+    gap: 1rem;
+  }
+  
+  .mistake-category {
+    padding: 1rem;
+  }
+  
+  .mistake-examples {
+    gap: 1rem;
+  }
+  
+  .mistake-example {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .strategy-card,
+  .band-card,
+  .prep-item,
+  .mistake-category {
+    padding: 1rem;
+  }
+  
+  .sample-analysis {
+    padding: 1rem;
+  }
+}

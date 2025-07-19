@@ -1,0 +1,89 @@
+/* Mock Test Specific Styles */
+.mock-test .test-content {
+  padding-top: 150px;
+}
+
+.task-info {
+  background: #f7fafc;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  border-left: 4px solid #4c51bf;
+}
+
+.task-info h3 {
+  color: #2d3748;
+  margin-bottom: 0.5rem;
+}
+
+.task-info p {
+  color: #718096;
+  margin: 0;
+}
+
+.word-status {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.word-status .warning {
+  color: #e53e3e;
+  font-size: 0.9rem;
+}
+
+.word-status .good {
+  color: #38a169;
+  font-size: 0.9rem;
+}
+
+.chart-placeholder {
+  background: #f7fafc;
+  border: 2px dashed #cbd5e0;
+  border-radius: 8px;
+  padding: 2rem;
+  text-align: center;
+  color: #718096;
+  margin: 1rem 0;
+}
+
+.word-count {
+  font-weight: 600;
+}
+
+.word-count .target {
+  font-weight: normal;
+  color: #718096;
+  margin-left: 0.5rem;
+}
+
+/* Test sections responsive adjustments */
+@media (max-width: 768px) {
+  .mock-test .test-content {
+    padding-top: 120px;
+  }
+  
+  .task-info {
+    padding: 0.75rem;
+  }
+  
+  .word-status {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+  }
+  
+  .chart-placeholder {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .mock-test .test-content {
+    padding-top: 100px;
+  }
+  
+  .task-info {
+    padding: 0.5rem;
+  }
+}
