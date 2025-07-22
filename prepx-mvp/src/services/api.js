@@ -231,6 +231,59 @@ class ApiService {
     return await this.request(url);
   }
 
+  // Admin API methods
+  async adminGetDashboardStats() {
+    return await this.request('/admin/dashboard/stats');
+  }
+
+  async adminGetUsers(filters = {}) {
+    const params = new URLSearchParams();
+    Object.entries(filters).forEach(([key, value]) => {
+      if (value !== '' && value !== null && value !== undefined) {
+        params.append(key, value);
+      }
+    });
+    const url = params.toString() ? `/admin/users?${params.toString()}` : '/admin/users';
+    return await this.request(url);
+  }
+
+  async adminGetUserDetails(userId) {
+    return await this.request(`/admin/users/${userId}`);
+  }
+
+  async adminUpdateUserStatus(userId, data) {
+    return await this.request(`/admin/users/${userId}/status`, {
+      method: 'PUT',
+      body: JSON.stringify(data)
+    });
+  }
+
+  async adminGetTests(filters = {}) {
+    const params = new URLSearchParams();
+    Object.entries(filters).forEach(([key, value]) => {
+      if (value !== '' && value !== null && value !== undefined) {
+        params.append(key, value);
+      }
+    });
+    const url = params.toString() ? `/admin/tests?${params.toString()}` : '/admin/tests';
+    return await this.request(url);
+  }
+
+  async adminGetTestDetails(testId) {
+    return await this.request(`/admin/tests/${testId}`);
+  }
+
+  async adminToggleTestPremium(testId, data) {
+    return await this.request(`/admin/tests/${testId}/premium`, {
+      method: 'PUT',
+      body: JSON.stringify(data)
+    });
+  }
+
+  async adminGetSystemLogs() {
+    return await this.request('/admin/logs');
+  }
+
   // Health check
   async healthCheck() {
     try {

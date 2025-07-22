@@ -39,21 +39,32 @@ class Database {
         email VARCHAR(255) UNIQUE NOT NULL,
         password_hash VARCHAR(255) NOT NULL,
         name VARCHAR(100) NOT NULL,
+        role VARCHAR(20) DEFAULT 'user',
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         last_login DATETIME,
         subscription_type VARCHAR(20) DEFAULT 'free',
         tests_this_week INTEGER DEFAULT 0,
         last_test_date DATE,
-        is_active BOOLEAN DEFAULT 1
+        is_active BOOLEAN DEFAULT 1,
+        settings TEXT DEFAULT '{}',
+        preferences TEXT DEFAULT '{}'
       )`,
 
       // Tests table
       `CREATE TABLE IF NOT EXISTS tests (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         title VARCHAR(255) NOT NULL,
+        description TEXT,
         type VARCHAR(50) NOT NULL,
         difficulty VARCHAR(20) DEFAULT 'intermediate',
-        duration_minutes INTEGER NOT NULL,
+        duration INTEGER NOT NULL,
+        is_premium BOOLEAN DEFAULT 0,
+        is_official BOOLEAN DEFAULT 0,
+        series VARCHAR(100),
+        test_number INTEGER,
+        book_number INTEGER,
+        sections TEXT,
+        tags TEXT,
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         is_active BOOLEAN DEFAULT 1
       )`,
@@ -94,13 +105,16 @@ class Database {
       `CREATE TABLE IF NOT EXISTS questions (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         test_id INTEGER NOT NULL,
-        section VARCHAR(20) NOT NULL,
+        section INTEGER NOT NULL,
         question_type VARCHAR(50) NOT NULL,
         question_text TEXT NOT NULL,
-        correct_answer TEXT,
         options TEXT,
+        correct_answer TEXT,
+        explanation TEXT,
+        passage TEXT,
+        audio_timestamp VARCHAR(50),
         points INTEGER DEFAULT 1,
-        order_index INTEGER NOT NULL,
+        order_index INTEGER DEFAULT 1,
         audio_file VARCHAR(255),
         image_file VARCHAR(255),
         FOREIGN KEY (test_id) REFERENCES tests(id)
@@ -108,11 +122,15 @@ class Database {
 
       // Learning resources table
       `CREATE TABLE IF NOT EXISTS learning_resources (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        id VARCHAR(100) PRIMARY KEY,
         title VARCHAR(255) NOT NULL,
         type VARCHAR(50) NOT NULL,
         category VARCHAR(50) NOT NULL,
         content TEXT NOT NULL,
+        difficulty VARCHAR(20) DEFAULT 'intermediate',
+        estimated_time INTEGER DEFAULT 10,
+        tags TEXT DEFAULT '[]',
+        metadata TEXT DEFAULT '{}',
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         is_active BOOLEAN DEFAULT 1
       )`,
@@ -142,18 +160,18 @@ class Database {
     const testExists = await this.get('SELECT id FROM tests WHERE id = 1');
     if (!testExists) {
       await this.run(`
-        INSERT INTO tests (id, title, type, duration_minutes) 
-        VALUES (1, 'IELTS Academic Practice Test 1', 'full', 180)
+        INSERT INTO tests (id, title, description, type, duration, is_premium) 
+        VALUES (1, 'IELTS Academic Practice Test 1', 'Sample practice test for IELTS preparation', 'full', 180, 0)
       `);
     }
 
     // Insert sample questions for listening section
-    const listeningQuestions = await this.get('SELECT id FROM questions WHERE test_id = 1 AND section = "listening" LIMIT 1');
+    const listeningQuestions = await this.get('SELECT id FROM questions WHERE test_id = 1 AND section = 1 LIMIT 1');
     if (!listeningQuestions) {
       const sampleQuestions = [
         {
           test_id: 1,
-          section: 'listening',
+          section: 1,
           question_type: 'multiple-choice',
           question_text: 'What is the main topic of the conversation?',
           correct_answer: '2',
@@ -162,7 +180,7 @@ class Database {
         },
         {
           test_id: 1,
-          section: 'listening',
+          section: 1,
           question_type: 'multiple-choice',
           question_text: 'When is the deadline for the application?',
           correct_answer: '1',
@@ -180,12 +198,12 @@ class Database {
     }
 
     // Insert sample reading questions
-    const readingQuestions = await this.get('SELECT id FROM questions WHERE test_id = 1 AND section = "reading" LIMIT 1');
+    const readingQuestions = await this.get('SELECT id FROM questions WHERE test_id = 1 AND section = 2 LIMIT 1');
     if (!readingQuestions) {
       const sampleReadingQuestions = [
         {
           test_id: 1,
-          section: 'reading',
+          section: 2,
           question_type: 'multiple-choice',
           question_text: 'According to the passage, what has happened to solar panel costs over the past decade?',
           correct_answer: '1',
@@ -194,7 +212,7 @@ class Database {
         },
         {
           test_id: 1,
-          section: 'reading',
+          section: 2,
           question_type: 'true-false-not-given',
           question_text: 'Government policies have had no impact on renewable energy development.',
           correct_answer: 'False',
@@ -203,7 +221,7 @@ class Database {
         },
         {
           test_id: 1,
-          section: 'reading',
+          section: 2,
           question_type: 'completion',
           question_text: 'Energy _______ continues to be a significant challenge for renewable energy.',
           correct_answer: 'storage',

@@ -76,6 +76,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/tests', testRoutes);
 app.use('/api/writing', writingRoutes);
 app.use('/api/resources', resourcesRoutes);
+app.use('/api/admin', require('./routes/admin'));
 
 // Serve static files (for uploaded audio/images)
 app.use('/uploads', express.static('uploads'));

@@ -9,10 +9,21 @@ const WritingSection = ({ tasks, answers, onAnswersChange, onComplete }) => {
 
   const task = tasks[currentTask];
 
+  // Map task type to answer key
+  const getAnswerKey = (taskType) => {
+    if (taskType.toLowerCase().includes('task 1') || taskType.toLowerCase().includes('task1')) {
+      return 'task1';
+    } else if (taskType.toLowerCase().includes('task 2') || taskType.toLowerCase().includes('task2')) {
+      return 'task2';
+    }
+    return taskType.toLowerCase().replace(/\s+/g, '');
+  };
+
   const handleAnswerChange = (taskType, answer) => {
+    const key = getAnswerKey(taskType);
     const newAnswers = {
       ...answers,
-      [taskType.toLowerCase()]: answer
+      [key]: answer
     };
     onAnswersChange(newAnswers);
   };
@@ -29,7 +40,8 @@ const WritingSection = ({ tasks, answers, onAnswersChange, onComplete }) => {
     return text.trim().split(/\s+/).filter(word => word.length > 0).length;
   };
 
-  const currentAnswer = answers[task.type.toLowerCase().replace(' ', '')] || '';
+  const answerKey = getAnswerKey(task.type);
+  const currentAnswer = answers[answerKey] || '';
 
   return (
     <div className="writing-section">

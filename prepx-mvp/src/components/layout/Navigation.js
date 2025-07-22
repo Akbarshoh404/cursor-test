@@ -54,6 +54,10 @@ const Navigation = () => {
                 <span className="user-email">{currentUser.email}</span>
               </div>
               <div className="dropdown-divider"></div>
+              <Link to="/settings" className="dropdown-item" onClick={toggleMenu}>
+                ⚙️ Settings
+              </Link>
+              <div className="dropdown-divider"></div>
               <button onClick={handleLogout} className="dropdown-item logout">
                 Logout
               </button>
@@ -81,6 +85,9 @@ const Navigation = () => {
           </Link>
           <Link to="/resources" className="mobile-nav-link" onClick={toggleMenu}>
             Resources
+          </Link>
+          <Link to="/settings" className="mobile-nav-link" onClick={toggleMenu}>
+            Settings
           </Link>
           <div className="mobile-user-info">
             <span>{currentUser.name}</span>
