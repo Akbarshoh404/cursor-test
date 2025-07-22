@@ -59,76 +59,76 @@ function App() {
     <ThemeProvider>
       <AuthProvider>
         <Router>
-        <div className="App">
-          <Routes>
-            {/* Public Routes */}
-            <Route path="/login" element={
-              <PublicRoute>
-                <Login />
-              </PublicRoute>
-            } />
-            <Route path="/register" element={
-              <PublicRoute>
-                <Register />
-              </PublicRoute>
-            } />
+          <div className="App">
+            <Routes>
+              {/* Public Routes */}
+              <Route path="/login" element={
+                <PublicRoute>
+                  <Login />
+                </PublicRoute>
+              } />
+              <Route path="/register" element={
+                <PublicRoute>
+                  <Register />
+                </PublicRoute>
+              } />
 
-            {/* Protected Routes */}
-            <Route path="/dashboard" element={
-              <ProtectedRoute>
-                <DashboardRouter />
-              </ProtectedRoute>
-            } />
-            <Route path="/admin" element={
-              <AdminRoute>
-                <AdminDashboard />
-              </AdminRoute>
-            } />
-            <Route path="/test" element={
-              <ProtectedRoute>
-                <MockTest />
-              </ProtectedRoute>
-            } />
-            <Route path="/writing" element={
-              <ProtectedRoute>
-                <WritingPractice />
-              </ProtectedRoute>
-            } />
-            <Route path="/speaking" element={
-              <ProtectedRoute>
-                <SpeakingPractice />
-              </ProtectedRoute>
-            } />
-            <Route path="/premium" element={
-              <ProtectedRoute>
-                <PremiumPlans />
-              </ProtectedRoute>
-            } />
-            <Route path="/writing/task1" element={
-              <ProtectedRoute>
-                <WritingPractice />
-              </ProtectedRoute>
-            } />
-            <Route path="/writing/task2" element={
-              <ProtectedRoute>
-                <WritingPractice />
-              </ProtectedRoute>
-            } />
-            <Route path="/resources" element={
-              <ProtectedRoute>
-                <LearningResources />
-              </ProtectedRoute>
-            } />
-            <Route path="/settings" element={
-              <ProtectedRoute>
-                <Settings />
-              </ProtectedRoute>
-            } />
+              {/* Protected Routes */}
+              <Route path="/dashboard" element={
+                <ProtectedRoute>
+                  <DashboardRouter />
+                </ProtectedRoute>
+              } />
+              <Route path="/admin" element={
+                <AdminRoute>
+                  <AdminDashboard />
+                </AdminRoute>
+              } />
+              <Route path="/test" element={
+                <ProtectedRoute>
+                  <MockTest />
+                </ProtectedRoute>
+              } />
+              <Route path="/writing" element={
+                <ProtectedRoute>
+                  <WritingPractice />
+                </ProtectedRoute>
+              } />
+              <Route path="/speaking" element={
+                <ProtectedRoute>
+                  <SpeakingPractice />
+                </ProtectedRoute>
+              } />
+              <Route path="/premium" element={
+                <ProtectedRoute>
+                  <PremiumPlans />
+                </ProtectedRoute>
+              } />
+              <Route path="/writing/task1" element={
+                <ProtectedRoute>
+                  <WritingPractice />
+                </ProtectedRoute>
+              } />
+              <Route path="/writing/task2" element={
+                <ProtectedRoute>
+                  <WritingPractice />
+                </ProtectedRoute>
+              } />
+              <Route path="/resources" element={
+                <ProtectedRoute>
+                  <LearningResources />
+                </ProtectedRoute>
+              } />
+              <Route path="/settings" element={
+                <ProtectedRoute>
+                  <Settings />
+                </ProtectedRoute>
+              } />
 
-            {/* Default redirect */}
-            <Route path="/" element={<DefaultRedirect />} />
-            <Route path="*" element={<DefaultRedirect />} />
-                      </Routes>
+              {/* Default redirect */}
+              <Route path="/" element={<DefaultRedirect />} />
+              <Route path="*" element={<DefaultRedirect />} />
+            </Routes>
           </div>
         </Router>
       </AuthProvider>

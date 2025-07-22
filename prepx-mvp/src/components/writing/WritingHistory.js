@@ -39,7 +39,7 @@ const WritingHistory = () => {
 
       <div className="history-stats">
         <div className="stat-card">
-                        <span className="stat-number">{currentUser.writingHistory?.length ?? 0}</span>
+          <span className="stat-number">{currentUser.writingHistory?.length ?? 0}</span>
           <span className="stat-label">Total Essays</span>
         </div>
         <div className="stat-card">
