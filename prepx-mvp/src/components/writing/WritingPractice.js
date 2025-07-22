@@ -120,13 +120,13 @@ const WritingOverview = ({ setActiveTab }) => {
           <h3>📈 Your Progress</h3>
           <div className="stats-grid">
             <div className="stat-item">
-              <span className="stat-number">{currentUser.writingHistory.length}</span>
+              <span className="stat-number">{currentUser.writingHistory?.length ?? 0}</span>
               <span className="stat-label">Essays Written</span>
             </div>
             <div className="stat-item">
               <span className="stat-number">
-                {currentUser.writingHistory.length > 0 
-                  ? currentUser.writingHistory[currentUser.writingHistory.length - 1].estimatedBand 
+                {currentUser.writingHistory?.length > 0 
+                  ? currentUser.writingHistory[currentUser.writingHistory.length - 1]?.estimatedBand ?? '—'
                   : '—'}
               </span>
               <span className="stat-label">Latest Score</span>
