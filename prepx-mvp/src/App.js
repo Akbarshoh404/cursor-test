@@ -6,11 +6,15 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import Dashboard from './components/dashboard/Dashboard';
+import EnhancedDashboard from './components/dashboard/EnhancedDashboard';
 import MockTest from './components/test/MockTest';
 import WritingPractice from './components/writing/WritingPractice';
+import SpeakingPractice from './components/speaking/SpeakingPractice';
+import PremiumPlans from './components/premium/PremiumPlans';
 import LearningResources from './components/resources/LearningResources';
 
 import './App.css';
+import './styles/theme.css';
 
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
@@ -45,7 +49,7 @@ function App() {
             {/* Protected Routes */}
             <Route path="/dashboard" element={
               <ProtectedRoute>
-                <Dashboard />
+                <EnhancedDashboard />
               </ProtectedRoute>
             } />
             <Route path="/test" element={
@@ -56,6 +60,16 @@ function App() {
             <Route path="/writing" element={
               <ProtectedRoute>
                 <WritingPractice />
+              </ProtectedRoute>
+            } />
+            <Route path="/speaking" element={
+              <ProtectedRoute>
+                <SpeakingPractice />
+              </ProtectedRoute>
+            } />
+            <Route path="/premium" element={
+              <ProtectedRoute>
+                <PremiumPlans />
               </ProtectedRoute>
             } />
             <Route path="/writing/task1" element={

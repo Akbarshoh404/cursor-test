@@ -78,7 +78,7 @@ const Dashboard = () => {
             <h3>✍️ Writing Practice</h3>
             <p>Practice Task 1 & Task 2 with sample answers</p>
             <div className="writing-stats">
-              <span>📝 {currentUser.writingHistory.length} essays completed</span>
+              <span>📝 {currentUser.writingHistory?.length ?? 0} essays completed</span>
             </div>
             <Link to="/writing" className="btn secondary">
               Practice Writing
@@ -99,7 +99,7 @@ const Dashboard = () => {
               </div>
               <div className="activity-item">
                 <span className="activity-label">Essays Written:</span>
-                <span className="activity-value">{currentUser.writingHistory.length}</span>
+                <span className="activity-value">{currentUser.writingHistory?.length ?? 0}</span>
               </div>
             </div>
           </div>
@@ -122,13 +122,13 @@ const Dashboard = () => {
                 <span className="stat-label">Tests This Week</span>
               </div>
               <div className="stat-item">
-                <span className="stat-number">{currentUser.writingHistory.length}</span>
+                <span className="stat-number">{currentUser.writingHistory?.length ?? 0}</span>
                 <span className="stat-label">Essays Written</span>
               </div>
               <div className="stat-item">
                 <span className="stat-number">
-                  {currentUser.writingHistory.length > 0 
-                    ? currentUser.writingHistory[currentUser.writingHistory.length - 1].estimatedBand 
+                  {currentUser.writingHistory?.length > 0 
+                    ? currentUser.writingHistory[currentUser.writingHistory.length - 1]?.estimatedBand ?? '—'
                     : '—'}
                 </span>
                 <span className="stat-label">Latest Writing Score</span>

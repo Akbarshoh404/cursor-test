@@ -15,7 +15,7 @@ const WritingHistory = () => {
     return '#718096';
   };
 
-  if (currentUser.writingHistory.length === 0) {
+  if (!currentUser.writingHistory || currentUser.writingHistory.length === 0) {
     return (
       <div className="writing-history empty">
         <div className="empty-state">
@@ -39,7 +39,7 @@ const WritingHistory = () => {
 
       <div className="history-stats">
         <div className="stat-card">
-          <span className="stat-number">{currentUser.writingHistory.length}</span>
+                        <span className="stat-number">{currentUser.writingHistory?.length ?? 0}</span>
           <span className="stat-label">Total Essays</span>
         </div>
         <div className="stat-card">
@@ -56,7 +56,7 @@ const WritingHistory = () => {
         </div>
         <div className="stat-card">
           <span className="stat-number">
-            {currentUser.writingHistory.length > 0
+            {currentUser.writingHistory?.length > 0
               ? (currentUser.writingHistory.reduce((sum, h) => sum + h.estimatedBand, 0) / currentUser.writingHistory.length).toFixed(1)
               : '—'
             }
