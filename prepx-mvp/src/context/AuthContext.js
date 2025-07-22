@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { mockUsers } from '../data/mockData';
+import apiService from '../services/api';
 
 const AuthContext = createContext();
 
@@ -16,78 +16,96 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Check if user is already logged in (stored in localStorage)
-    const storedUser = localStorage.getItem('currentUser');
-    if (storedUser) {
-      setCurrentUser(JSON.parse(storedUser));
+    // Check if user is already logged in (token in localStorage)
+    const token = localStorage.getItem('token');
+    if (token) {
+      // Verify token and get user profile
+      apiService.getProfile()
+        .then(response => {
+          if (response.success) {
+            setCurrentUser(response.data);
+          } else {
+            // Token is invalid, remove it
+            localStorage.removeItem('token');
+          }
+        })
+        .catch(error => {
+          console.error('Token verification failed:', error);
+          localStorage.removeItem('token');
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    } else {
+      setLoading(false);
     }
-    setLoading(false);
   }, []);
 
   const login = async (email, password) => {
-    // Mock authentication - in real app, this would be an API call
-    const user = mockUsers.find(u => u.email === email && u.password === password);
-    
-    if (user) {
-      setCurrentUser(user);
-      localStorage.setItem('currentUser', JSON.stringify(user));
-      return { success: true };
-    } else {
-      return { success: false, error: 'Invalid email or password' };
+    try {
+      const response = await apiService.login(email, password);
+      
+      if (response.success) {
+        setCurrentUser(response.data.user);
+        return { success: true };
+      } else {
+        return { success: false, error: response.message };
+      }
+    } catch (error) {
+      return { success: false, error: error.message || 'Login failed' };
     }
   };
 
   const register = async (name, email, password) => {
-    // Mock registration - in real app, this would be an API call
-    const existingUser = mockUsers.find(u => u.email === email);
-    
-    if (existingUser) {
-      return { success: false, error: 'User already exists with this email' };
-    }
-
-    const newUser = {
-      id: mockUsers.length + 1,
-      name,
-      email,
-      password, // In real app, this would be hashed
-      joinDate: new Date().toISOString().split('T')[0],
-      lastTestDate: null,
-      testsThisWeek: 0,
-      writingHistory: []
-    };
-
-    mockUsers.push(newUser);
-    setCurrentUser(newUser);
-    localStorage.setItem('currentUser', JSON.stringify(newUser));
-    
-    return { success: true };
-  };
-
-  const logout = () => {
-    setCurrentUser(null);
-    localStorage.removeItem('currentUser');
-  };
-
-  const updateUserTestProgress = () => {
-    if (currentUser) {
-      const updatedUser = {
-        ...currentUser,
-        testsThisWeek: currentUser.testsThisWeek + 1,
-        lastTestDate: new Date().toISOString().split('T')[0]
-      };
-      setCurrentUser(updatedUser);
-      localStorage.setItem('currentUser', JSON.stringify(updatedUser));
+    try {
+      const response = await apiService.register(name, email, password);
+      
+      if (response.success) {
+        setCurrentUser(response.data.user);
+        return { success: true };
+      } else {
+        return { success: false, error: response.message };
+      }
+    } catch (error) {
+      return { success: false, error: error.message || 'Registration failed' };
     }
   };
 
-  const addWritingSubmission = (submission) => {
+  const logout = async () => {
+    try {
+      await apiService.logout();
+    } catch (error) {
+      console.error('Logout error:', error);
+    } finally {
+      setCurrentUser(null);
+    }
+  };
+
+  const updateUserTestProgress = async () => {
     if (currentUser) {
-      const updatedUser = {
-        ...currentUser,
-        writingHistory: [...currentUser.writingHistory, submission]
-      };
-      setCurrentUser(updatedUser);
-      localStorage.setItem('currentUser', JSON.stringify(updatedUser));
+      try {
+        // Refresh user profile from server to get updated stats
+        const response = await apiService.getProfile();
+        if (response.success) {
+          setCurrentUser(response.data);
+        }
+      } catch (error) {
+        console.error('Failed to update user progress:', error);
+      }
+    }
+  };
+
+  const addWritingSubmission = async (submission) => {
+    if (currentUser) {
+      try {
+        // Refresh user profile from server to get updated stats
+        const response = await apiService.getProfile();
+        if (response.success) {
+          setCurrentUser(response.data);
+        }
+      } catch (error) {
+        console.error('Failed to update writing submission:', error);
+      }
     }
   };
 
